@@ -1,0 +1,45 @@
+# feign客户端配置
+
+# feign
+feign:
+  # hystrix
+  hystrix:
+    # 开启熔断器
+    enabled: true
+  # 请求响应压缩
+  compression:
+    # 请求
+    request:
+      # 配置请求GZIP压缩
+      enabled: true
+      # 配置压缩支持的MIME TYPE
+      mime-types: text/xml,application/xml,application/json
+      # 配置压缩数据大小的下限
+      min-request-size: 2048
+    # 响应
+    response:
+      # 配置响应GZIP压缩
+      enabled: true
+      
+# ribbon   
+ribbon:
+  # 同一台实例最大重试次数,不包括首次调用
+    MaxAutoRetries: 1 
+    # 重试负载均衡其他的实例最大重试次数,不包括首次调用
+    MaxAutoRetriesNextServer: 1 
+    # 对所有的操作请求都进行重试，如果是get则可以，如果是post,put等操作没有实现幂等的情况下是很危险的
+    OkToRetryOnAllOperations: false 
+    # 请求连接的超时时间
+    ConnectTimeout: 250 
+    # 请求处理的超时时间
+    ReadTimeout: 4500 
+
+# hystrix   
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            #hystrix的超时时间hystrix的超时时间要大于ribbon的超时时间，ribbon才会重试
+            timeoutInMilliseconds: 5000

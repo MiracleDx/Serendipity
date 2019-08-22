@@ -1,0 +1,9 @@
+server:
+  port: 8083
+  
+spring:
+  application:
+    name: monitor-hystrix
+    
+# 参考consumer-ribbon开启监控端点
+# http://localhost:8280/actuator/hystrix.stream

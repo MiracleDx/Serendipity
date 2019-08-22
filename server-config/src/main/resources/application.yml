@@ -1,0 +1,49 @@
+server:
+  port: 8085
+  
+spring:
+  # 应用名称
+  application: 
+    name: server-config
+  # 开启本地配置中心
+  profiles:
+    active: native
+  # 微服务
+  cloud:
+    # 配置中心
+    config:
+      server:
+        native:
+          # 配置文件位置
+          search-locations: classpath:/config-repo/
+  
+  # security        
+  security:
+    user:
+      # 用户名
+      name: user
+      # 密码
+      password: config
+      
+# eureka        
+eureka:
+  client:
+    # 缓存清单更新时间
+    registry-fetch-interval-seconds: 5
+    # 检索服务
+    fetch-registry: true
+    # eureka注册中心
+    service-url: 
+      defaultZone: http://user:eb498580-ee8d-45c0-b68f-a6c417d52576@localhost:8081/eureka, http://user:eb498580-ee8d-45c0-b68f-a6c417d52576@localhost:8082/eureka
+  instance:
+    hostname: ${spring.application.name}
+    # 自定义instance_id
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+    # 服务续约间隔
+    lease-renewal-interval-in-seconds: 5
+    # 服务失效时间
+    lease-expiration-duration-in-seconds: 10
+    # 使用IP注册
+    prefer-ip-address: true
+  
+  

@@ -1,0 +1,15 @@
+# turbine配置
+
+# turbine
+turbine:
+  # 需要聚合的服务名称， 多个服务以","分隔
+  app-config: consumer-ribbon
+  aggregator:
+      # 需要聚合的集群名称
+      cluster-config: default
+  # 需要聚合的集群名称表达式
+  cluster-name-expression: new String("default")
+  # 合并同一个host多个端口的数据
+  combine-host-port: true
+  
+# http://localhost:8084/turbine.stream

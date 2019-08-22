@@ -1,0 +1,11 @@
+from: git-default-1.0
+
+server:
+  port: 8888
+  
+# eureka
+eureka:
+  # 客户端
+  client:
+    # 缓存清单更新时间
+    registry-fetch-interval-seconds: 20

@@ -1,0 +1,12 @@
+# tomcat配置
+
+server:
+  tomcat:
+    # 初始化线程数
+    min-spare-threads: 20
+    # 最大线程数
+    max-threads: 100
+  # 超时时间
+  connection-timeout: 5000ms
+  
+  #java -server -Xms768m -Xmx768m -jar springboot-1.0.jar

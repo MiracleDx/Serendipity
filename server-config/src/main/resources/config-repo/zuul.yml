@@ -1,0 +1,52 @@
+# zuul配置
+
+# zuul
+zuul:
+  host:
+    # HTTP连接超时要比Hystrix的大
+    connect-timeout-millis: 12000
+    # socket超时
+    socket-timeout-millis: 15000
+  # 路由转发前设置Host头信息
+  add-host-header: true
+  # 不创建默认路由
+  ignored-services: "*"
+  # 路由前缀
+  prefix: /api
+  # 路由配置
+  routes: 
+    consumer-ribbon:
+      path: /ribbon/**
+      serviceId: consumer-ribbon
+      sensitiveHeaders: true
+    consumer-feign:
+      path: /feign/**
+      serviceId: consumer-feign
+    # 本地跳转
+    local:
+      path: /**
+      url: forward:/local
+  
+# ribbon
+ribbon:
+    # 同一台实例最大重试次数,不包括首次调用
+    MaxAutoRetries: 1 
+    # 重试负载均衡其他的实例最大重试次数,不包括首次调用
+    MaxAutoRetriesNextServer: 1 
+    # 对所有的操作请求都进行重试，如果是get则可以，如果是post,put等操作没有实现幂等的情况下是很危险的
+    OkToRetryOnAllOperations: false 
+    # 请求连接的超时时间
+    ConnectTimeout: 250 
+    # 请求处理的超时时间
+    ReadTimeout: 4500
+
+# hystrix  
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            # hystrix的超时时间要大于ribbon的超时时间，ribbon才会重试
+            # ribbonTimeout = (ribbonReadTimeout + ribbonConnectTimeout) * (maxAutoRetries + 1) * (maxAutoRetriesNextServer + 1);
+            timeoutInMilliseconds: 20000

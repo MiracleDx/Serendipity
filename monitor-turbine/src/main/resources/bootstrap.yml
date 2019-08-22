@@ -1,0 +1,47 @@
+server:
+  port: 8084
+
+spring:
+  # 应用名称
+  application:
+    name: monitor-turbine
+    
+  # 微服务
+  cloud:
+     # 配置中心
+     config:
+       # 拉取的文件前缀名名称，多个配置文件以","分隔
+       name: server, eureka, turbine
+       # 服务环境名称 {name}-{profile}=config-client-dev.yml
+       profile: default
+       # git分支
+       label: master
+       # 服务发现
+       discovery:
+         # 开启服务发现
+         enabled: true
+         # Config Server注册的服务名
+         service-id: server-config  
+       # 失败快速响应
+       fail-fast: true
+       # 配置中心用户名
+       username: user
+       # 配置中心密码
+       password: config    
+
+# eureka
+eureka:
+  # 客户端
+  client:
+    # eureka注册中心
+    service-url:
+      defaultZone: http://user:eb498580-ee8d-45c0-b68f-a6c417d52576@localhost:8081/eureka, http://user:eb498580-ee8d-45c0-b68f-a6c417d52576@localhost:8082/eureka
+  # 实例配置
+  instance:
+    hostname: ${spring.application.name}
+    # 自定义instance_id
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}   
+ 
+  
+  
+    

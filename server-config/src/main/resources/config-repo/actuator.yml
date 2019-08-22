@@ -1,0 +1,9 @@
+# 监控端点配置
+
+# actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        # 暴露的监控端点 
+        include: refresh, health, hystrix.stream

@@ -1,0 +1,62 @@
+spring:
+  # 应用名称
+  application:
+    name: server-eureka
+    
+  # security        
+  security:
+    user:
+      # 用户名
+      name: user
+      # 密码
+      password: eb498580-ee8d-45c0-b68f-a6c417d52576
+      
+  # 微服务
+  cloud:
+     # 配置中心
+     config:
+       # 拉取的文件前缀名名称，多个配置文件以","分隔
+       name: server, eureka
+       # 服务环境名称 {name}-{profile}=config-client-dev.yml
+       profile: default
+       # git分支
+       label: master
+       # 配置中心URI地址
+       uri: http://localhost:8085
+       # 失败快速响应
+       fail-fast: true
+       # 配置中心用户名
+       username: user
+       # 配置中心密码
+       password: config    
+      
+# eureka    
+eureka:
+  # server
+  server:
+    # 自我保护机制
+    enable-self-preservation: true
+  # 客户端
+  client:
+    # eureka注册中心
+    service-url:
+      defaultZone: http://user:eb498580-ee8d-45c0-b68f-a6c417d52576@localhost:8081/eureka, http://user:eb498580-ee8d-45c0-b68f-a6c417d52576@localhost:8082/eureka
+  # 实例配置
+  instance:
+    hostname: ${spring.application.name}
+    # 自定义instance_id
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}  
+
+---
+server:
+  port: 8081
+  
+spring:
+  profiles: server1
+
+---
+server:
+  port: 8082
+  
+spring:
+  profiles: server2

@@ -1,0 +1,16 @@
+# 链路追踪配置
+
+spring:
+  # sleuth
+  sleuth:
+    sampler:
+      # 链路收集比率
+      probability: 1
+      
+  # zipkin链路收集配置
+  zipkin:
+    # zipkin服务器地址
+    base-url: http://localhost:9411
+    # zipkin发送方式
+    sender:
+      type: web
