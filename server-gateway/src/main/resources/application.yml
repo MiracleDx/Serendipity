@@ -1,0 +1,88 @@
+server:
+  port: 8080
+
+spring:
+  # 应用名称
+  application:
+    name: server-gateway
+    
+---
+spring:
+  profiles: after_route
+  cloud:
+    gateway:
+      routes: 
+      - id: provider-hello
+        uri: http://localhost:8181
+        predicates:
+        - After=2019-01-20T17:42:47.789-07:00[America/Denver]
+        filters:
+        - AddResponseHeader=X-Request-Foo, Bar
+  
+---
+spring:
+  profiles: header_route
+  cloud:
+    gateway:
+      routes: 
+      - id: provider-hello
+        uri: http://localhost:8181
+        predicates:
+        - Header=X-Request-Id
+
+---
+spring:
+  profiles: cookie_route
+  cloud:
+    gateway:
+      routes: 
+      - id: provider-hello
+        uri: http://localhost:8181
+        predicates:
+        - Cookie=name, forezp
+        
+---
+spring:
+  profiles: host_route
+  cloud:
+    gateway:
+      routes: 
+      - id: provider-hello
+        uri: http://localhost:8181
+        predicates:
+        - Host=**.xxx.com
+
+---
+spring:
+  profiles: method_route
+  cloud:
+    gateway:
+      routes: 
+      - id: provider-hello
+        uri: http://localhost:8181
+        predicates:
+        - Method=GET
+
+---
+spring:
+  profiles: path_route
+  cloud:
+    gateway:
+      routes:
+      - id: provider-hello
+        uri: http://localhost:8181
+        predicates:
+        - Path=/foo/**
+        filters:
+        - StripPrefix=1
+        
+---
+spring:
+  profiles: query_route
+  cloud:
+    gateway:
+      routes: 
+      - id: provider-hello
+        uri: http://localhost:8181
+        predicates:
+        - Query=foo,2
