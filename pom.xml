@@ -18,6 +18,7 @@
         <module>server-eureka</module>
         <module>server-config</module>
         <module>server-zuul</module>
+        <module>server-gateway</module>
         <module>provider-hello</module>
         <module>consumer-feign</module>
         <module>consumer-ribbon</module>
