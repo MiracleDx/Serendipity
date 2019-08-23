@@ -43,13 +43,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
         </dependency>
-
-        <!--Spring Cloud GateWay网关组件-->
-       <!-- <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
-        </dependency>-->
-
+        
         <!--Spring Cloud 配置中心组件-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
