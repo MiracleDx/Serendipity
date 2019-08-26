@@ -2,7 +2,9 @@ package com.serendipity.cloud.server.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 @RestController
 @SpringBootApplication
@@ -29,9 +31,9 @@ public class GatewayApplication {
 	//				.uri(httpUri))
 	//			.build();
 	//}
-	//
-	//@RequestMapping("/fallback")
-	//public Mono<String> fallback() {
-	//	return Mono.just("fallback");
-	//}
+	
+	@RequestMapping("/fallback")
+	public Mono<String> fallback() {
+		return Mono.just("fallback");
+	}
 }

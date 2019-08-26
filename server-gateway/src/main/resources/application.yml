@@ -5,6 +5,49 @@ spring:
   # 应用名称
   application:
     name: server-gateway
+  cloud:
+    gateway:
+      default-filters:
+      - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      - name: RequestSize
+        args:
+          # 单位字节
+          maxSize: 5000000
+      - name: Retry
+        args:
+          retries: 3
+          statuses: BAD_GATEWAY
+      routes:
+      - id: provider-hello
+        uri: http://localhost:8181
+        predicates:
+        - Path=/**
+        filters:
+        - name: Hystrix
+          args:
+            name: fetchIngredients
+            fallbackUri: forward:/fallback
+      - id: provider-hello-fallback
+        uri: http://localhost:8080
+        predicates:
+        - Path=/fallback
+
+# hystrix   
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+          
+
+logging:
+  level:
+    org.springframework.cloud.gateway: trace
+    org.springframework.http.server.reactive: debug
+    org.springframework.web.reactive: debug
+    reactor.ipc.netty: debug
     
 ---
 spring:
@@ -74,6 +117,7 @@ spring:
         predicates:
         - Path=/foo/**
         filters:
+        # 去除掉foo的前缀
         - StripPrefix=1
         
 ---
