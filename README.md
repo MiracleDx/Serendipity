@@ -8,9 +8,11 @@
     |-server    # 基础服务
         |-config    # 配置中心
         |-eureka    # 注册中心
-        |-zuul      # 网关
+        |-zuul      # zuul网关
+        |-gateway   # gateway网关
     |-provider  # 服务提供者
         |-hello     # hello服务提供者
+        |-webflux   # webflux服务提供者
     |-consumer  # 服务消费者
         |-feign     # feign服务消费者
         |-ribbon    # ribbon服务消费者
